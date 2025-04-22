@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description"
+      content="Multi-motif scaffolding without given prior knowledge.">
+    <meta name="keywords"
+      content="AI4Science, Protein Design, Motif scaffolding">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FADiff: Floating Anchor Diffusion Model for Multi-motif Scaffolding
+    </title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.ico">
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+  </head>
+  <body>
+
+    <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu"
+          aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start"
+          style="flex-grow: 1; justify-content: center;">
+          <a class="navbar-item" href="https://zjukeliu.github.io/">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More Research
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item"
+                href="https://www.nature.com/articles/s41586-023-06415-8">
+                RFDiffusion
+              </a>
+              <a class="navbar-item"
+                href="https://www.nature.com/articles/s41586-023-06728-8">
+                Chroma
+              </a>
+              <a class="navbar-item"
+                href="https://openreview.net/forum?id=9UIGyJJpay&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2024%2FConference%2FAuthors%23your-submissions)">
+                VFN
+              </a>
+              <a class="navbar-item" href="https://arxiv.org/abs/2302.02277">
+                SE(3) diffusion
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </nav> -->
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">Online Reward-Weighted
+                Fine-Tuning of Flow Matching with Wasserstein
+                Regularization</h1>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://www.jiajunfan.com/">Jiajun Fan
+                  </a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="https://eurekashen.github.io">Shuaike Shen
+                  </a><sup>2</sup>,</span>
+                <span class="author-block">
+                  <a href="https://ccr-cheng.github.io/">Chaoran
+                    Cheng</a><sup>1</sup>,
+                </span>
+                <span class="author-block">
+                  <a
+                    href="https://openreview.net/profile?id=~Yuxin_Chen12/">Yuxin
+                    Chen</a><sup>3</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://caradryanl.github.io/">Chumeng
+                    Liang</a><sup>4</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.mit.edu/~geliu/">Ge Liu</a>
+                  <sup>1,†</sup>,
+                </span>
+
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup>1</sup>University of Illinois
+                  Urbana-Champaign, </span>
+                <span class="author-block"><sup>2</sup>Zhejiang University,
+                </span>
+                <br>
+                <span class="author-block"><sup>3</sup>Tsinghua University,
+                </span>
+                <span class="author-block"><sup>4</sup>University of Southern
+                  California.</span>
+                <br>
+                <span class="author-block"><sup>†</sup>Corresponding
+                  Author</span>
+                <br>
+                <span class="author-block" style="font-size: 20px;"><b>ICLR
+                    2025</b></span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://openreview.net/forum?id=2IoFFexvuw"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <span class="link-block">
+                    <a
+                      href="https://arxiv.org/pdf/2502.06061"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/markerthu/ORW_CFM_Web.git"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <video id="teaser" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/teaser.mp4"
+              type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered">
+            <span class="dnerf">Nerfies</span> turns selfie videos from your
+            phone into
+            free-viewpoint
+            portraits.
+          </h2>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="hero is-light is-small">
+      <div class="hero-body">
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item item-steve">
+              <!-- <video poster id="steve" autoplay controls muted loop
+                playsinline height="200%">
+                <source src="./static/images/movie1.mp4"
+                  type="video/mp4">
+              </video> -->
+              <img src="./static/images/sea_animation.gif" width="100%">
+            </div>
+            <div class="item item-chair-tp">
+              <img src="./static/images/cat_dog_animation.gif" width="100%">
+            </div>
+            <div class="item item-shiba">
+              <img src="./static/images/banana_animation.gif" width="100%">
+            </div>
+            <div class="item item-fullbody">
+              <img src="./static/images/cat_dog_animation.gif" width="100%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Recent advancements in reinforcement learning (RL) have achieved
+                great success
+                in fine-tuning diffusion-based generative models. However,
+                fine-tuning continuous
+                flow-based generative models to align with arbitrary
+                user-defined reward functions remains challenging, particularly
+                due to issues such as policy collapse from
+                overoptimization and the prohibitively high computational cost
+                of likelihoods in
+                continuous-time flows. In this paper, we propose an easy-to-use
+                and theoretically
+                sound RL fine-tuning method, which we term Online
+                Reward-Weighted Conditional Flow Matching with Wasserstein-2
+                Regularization (ORW-CFM-W2). Our
+                method integrates RL into the flow matching framework to
+                fine-tune generative
+                models with arbitrary reward functions, without relying on
+                gradients of rewards
+                or filtered datasets. By introducing an online reward-weighting
+                mechanism, our
+                approach guides the model to prioritize high-reward regions in
+                the data manifold.
+                To prevent policy collapse and maintain diversity, we
+                incorporate Wasserstein-2
+                (W2) distance regularization into our method and derive a
+                tractable upper bound
+                for it in flow matching, effectively balancing exploration and
+                exploitation of policy
+                optimization. We provide theoretical analyses to demonstrate the
+                convergence
+                properties and induced data distributions of our method,
+                establishing connections
+                with traditional RL algorithms featuring Kullback-Leibler (KL)
+                regularization and
+                offering a more comprehensive understanding of the underlying
+                mechanisms and
+                learning behavior of our approach. Extensive experiments on
+                tasks including target
+                image generation, image compression, and text-image alignment
+                demonstrate the
+                effectiveness of our method, where our method achieves optimal
+                policy convergence while allowing controllable trade-offs
+                between reward maximization and
+                diversity preservation.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+
+        <!--/ Matting. -->
+
+        <!-- Animation. -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <!-- <h2 class="title is-3">Pipeline</h2> -->
+
+            <!-- Interpolating. -->
+            <h3 class="title is-4">Pipeline</h3>
+            <div class="content has-text-justified">
+              <p>
+                Many existing
+                reward-weighted RL fine-tuning
+                methods require train on offline
+                datasets manually collected by humans or
+                derived from pre-trained models. While this
+                approach ensures stable learning,
+                it restricts the model’s ability to
+                explore optimally in an online
+                setting, inducing what is known
+                as the online-offline gap. This limitation reduces the
+                model’s flexibility and can lead
+                to sub-optimal convergence. In
+                contrast, online RL enables the generative model to continuously
+                update its training distribution,
+                allowing for greater adaptability and diverse exploration within
+                the reward space.
+              </p>
+            </div>
+
+            <div class="content has-text-centered">
+              <img src="./static/images/OWR_pipe.png" width="75%">
+            </div>
+            <br />
+
+            <h3 class="title is-4">Experiments</h3>
+            <h4 class="title is-5">MNIST</h4>
+
+            <div class="content has-text-justified">
+              <p>
+                We can successfully train our model on a variety of tasks,
+                including
+                image generation, image compression, and text-image alignment.
+                We can see that our model can generate even numbers during
+                training process.
+              </p>
+            </div>
+
+            <div class="content has-text-centered">
+              <img src="./static/images/mnist_training_progress.gif"
+                width="50%">
+            </div>
+            <h4 class="title is-5">Scale to Stable Diffusion 3</h4>
+
+            <div class="columns is-centered">
+
+              <!--/ Visual Effects. -->
+
+              <!-- Matting. -->
+              <div class="column">
+                <div class="columns is-centered">
+                  <div class="column content">
+                    <p>
+                      We scaled our approach to fine-tune Stable Diffusion 3 on
+                      complex text-to-image generation tasks. Here are three
+                      challenging compositional prompts involving specific
+                      spatial relationships and multiple attributes.Notice how
+                      our
+                      method accurately captures the precise stacking order of
+                      colored cubes, the arrangement of plates, and even the
+                      specific clothing items on the panda emoji - all while
+                      maintaining natural visual quality.
+
+                    </p>
+                    <img src="./static/images/exp3.png" width="100%">
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="column">
+                <div class="content">
+                  <p>
+                    Our method is reward-agnostic and adapts to various reward
+                    functions without architectural changes. Here we fine-tuned
+                    SD3 with three different reward models: HPS-V2, Pick Score,
+                    and Alpha Clip - all using the same complex prompt about a
+                    train on a surfboard.
+                    Each row shows our model successfully achieving the desired
+                    compositional goal while maintaining high visual quality,
+                    regardless of which reward model guides the fine-tuning
+                    process.
+
+                  </p>
+                  <img src="./static/images/exp4.png" width="95%">
+                </div>
+              </div>
+
+            </div>
+
+            <!--/ Interpolating. -->
+
+          </div>
+        </div>
+        <!--/ Animation. -->
+
+        <!-- Concurrent Work. -->
+        <!-- <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Related Links</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                There's a lot of excellent work that was introduced around the
+                same time as ours.
+              </p>
+              <p>
+                <a href="https://arxiv.org/abs/2104.09125">Progressive
+                  Encoding for Neural Optimization</a> introduces an idea
+                similar to our windowed position encoding for coarse-to-fine
+                optimization.
+              </p>
+              <p>
+                <a
+                  href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a>
+                and <a
+                  href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+                both use deformation fields to model non-rigid scenes.
+              </p>
+              <p>
+                Some works model videos with a NeRF by directly modulating the
+                density, such as <a
+                  href="https://video-nerf.github.io/">Video-NeRF</a>, <a
+                  href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and
+                <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+              </p>
+              <p>
+                There are probably many more by the time you are reading this.
+                Check out <a href="https://dellaert.github.io/NeRF/">Frank
+                  Dellart's survey on recent NeRF papers</a>, and <a
+                  href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen
+                  Lin's curated list of NeRF papers</a>.
+              </p>
+            </div>
+          </div>
+        </div> -->
+        <!--/ Concurrent Work. -->
+
+      </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@inproceedings{
+          fan2025online,
+          title={Online Reward-Weighted Fine-Tuning of Flow Matching with Wasserstein Regularization},
+          author={Jiajun Fan and Shuaike Shen and Chaoran Cheng and Yuxin Chen and Chumeng Liang and Ge Liu},
+          booktitle={The Thirteenth International Conference on Learning Representations},
+          year={2025},
+          url={https://openreview.net/forum?id=2IoFFexvuw}
+          }</code></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <a class="icon-link"
+            href="./static/videos/nerfies_paper.pdf">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+          <a class="icon-link" href="https://github.com/"
+            class="external-link" disabled>
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is licensed under a <a rel="license"
+                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                  Commons Attribution-ShareAlike 4.0 International
+                  License</a>.
+              </p>
+              <p>
+                This means you are free to borrow the <a
+                  href="https://github.com/nerfies/nerfies.github.io">source
+                  code</a> of this website,
+                we just ask that you link back to this page in the footer.
+                Please remember to remove the analytics code included in the
+                header of the website which
+                you do not want on your website.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
